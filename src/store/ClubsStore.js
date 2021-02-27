@@ -1,20 +1,25 @@
 import request from "@/utils/request";
+import router from "../router";
 const state = {
     clubData: {},
     allClubs: [],
-    clubRegData: []
+    allEvent: [],
+    clubRegData: [],
+    clubPlayers: []
 };
 
 const getters = {
-    currentClubData: (state) => state.clubData,
-    clubRegistrationData: (state) => state.clubRegData
+    currentData: (state) => state.clubData || null,
+    clubRegistrationData: (state) => state.clubRegData,
+    currentEvents: (state) => state.allEvent,
+    clubPlayers: (state) => state.clubPlayers
 };
 
 const actions = {
-    async getClub({ commit }, requestData) {
+    // async getClub({ commit }, requestData) {
 
 
-    },
+    // },
     async clubMeta({ commit }) {
         try {
             const clubData = await request.get("/club/allclub", { params: { onlyMeta: true } });
@@ -28,16 +33,13 @@ const actions = {
         try {
             const clubData = await request.get("/club/me");
             commit("SET_CLUB_DATA", clubData.data);
-            dispatch("myClubPlayers");
         } catch (error) {
-            console.log(error);
             throw new Error(error);
         }
     },
     async myClubPlayers({ commit }) {
         try {
             const clubPlayers = await request.get("/club/players", { params: { id: state.clubData._id, playersData: true } });
-            commit("");
         } catch (error) {
             throw new Error(error);
         }
@@ -46,7 +48,34 @@ const actions = {
         try {
 
             const club = await request.put(`/club/${state.clubData._id}`, updateData, { clubId: state.clubData._id });
-            console.log(club);
+            commit("SET_CLUB_DATA", club.data);
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+    // events
+    async getAllEvents({ commit }) {
+        try {
+            const allEvents = await request.get("/event/current-events");
+            commit("SET_ALL_EVENT", allEvents.result);
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+    // club Players
+    async clubPlayers({ commit }, clubId) {
+        try {
+            const allClubPlayers = await request.get("/club/players", { params: { clubId: clubId } });
+            console.log(allClubPlayers);
+            commit("CLUB_PLAYERS", allClubPlayers.result.clubPlayers);
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+    async registerForEvent({ commit }, registrationDetail) {
+        try {
+            const registration = await request.post("/event/register-club-players", registrationDetail);
+            console.log(registration);
         } catch (error) {
             throw new Error(error);
         }
@@ -59,6 +88,12 @@ const mutations = {
     },
     CLUB_REG_DATA: (state, payload) => {
         state.clubRegData = payload;
+    },
+    SET_ALL_EVENT: (state, payload) => {
+        state.allEvent = payload;
+    },
+    CLUB_PLAYERS: (state, payload) => {
+        state.clubPlayers = payload;
     }
 };
 

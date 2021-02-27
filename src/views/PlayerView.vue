@@ -1,23 +1,18 @@
 <template>
-  <div class="flex">
-    <SideBar>
-      <PlayersSideBar />
-    </SideBar>
-    <div>
-      <router-view name="main" />
-    </div>
+  <div class="flex flex-1">
+    <router-view name="main" />
   </div>
 </template>
 
 <script>
-import SideBar from "../utils/SideBar";
-import PlayersSideBar from "../components/PlayersComponent/PlayersSideBar";
+// import SideBar from '../utils/SideBar';
+// import PlayersSideBar from '../components/PlayersComponent/PlayersSideBar';
 export default {
-  name: "playersview",
+  name: 'playersview',
   components: {
-    SideBar,
-    PlayersSideBar
-  }
+    // SideBar,
+    // PlayersSideBar,
+  },
 };
 </script>
 

@@ -33,16 +33,13 @@ const actions = {
   //   })
   // }
   async login({ commit, dispatch }, loginData) {
-    console.log("RAN LOGIN");
     try {
 
       const response = await request.post("/auth/login", loginData);
-
+      console.log(response);
       commit("SET_TOKEN", response.token);
       commit("SET_ROLE", response.role);
       if (response.success) {
-        console.log(response);
-        console.log(response.role === "clubadmin");
         if (response.role === "clubadmin") {
           router.push({ path: "/club" });
         }
@@ -87,6 +84,10 @@ const actions = {
   },
   async logout({ commit }) {
 
+  },
+  async adminRegister({ commit }, adminData) {
+    const response = await request.post("/auth/register-admin", adminData);
+    alert(response.result);
   }
 
 };

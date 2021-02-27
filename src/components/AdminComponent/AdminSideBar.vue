@@ -216,6 +216,12 @@
           href="#"
           >Create New Sheet</router-link
         >
+        <router-link
+          to="/admin/event-sheet-test"
+          class="py-2 px-16 block text-sm text-gray-100 hover:bg-blue-500 hover:text-white"
+          href="#"
+          >Update Sheet</router-link
+        >
       </div>
     </div>
   </div>

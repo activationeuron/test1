@@ -62,42 +62,23 @@
       <!-- listiten -->
 
       <div
+        v-for="club in clubsToApprove"
         class="grid grid-cols-5 text-gray-700 mt-6 bg-white py-2 px-2 shadow-sm rounded-sm"
+        :key="club._id"
       >
         <div class="flex items-center space-x-2">
           <input type="checkbox" name="" id="" />
           <div class="h-8 w-8 rounded-full bg-gray-600"></div>
-          <router-link to="/admin/admin-club/121">
+          <router-link
+            :to="{ name: 'club-admin-id', params: { id: club._id } }"
+          >
             <div class="flex flex-col justify-center">
-              <div class="text-sm font-bold">Mahalazmi Sports club</div>
+              <div class="text-sm font-bold">{{ club.clubName }}</div>
               <div class="text-xs">aforamitrai@gmail.com</div>
             </div>
           </router-link>
         </div>
         <div class="flex items-center">(91)7303032970</div>
-        <div class="flex items-center">Mumbai</div>
-        <div class="flex items-center">12-12-2020</div>
-        <div class="flex items-center justify-between">
-          <div>140</div>
-          <div class="font-bold cursor-pointer">
-            <icons name="hdot" />
-          </div>
-          <div></div>
-        </div>
-      </div>
-
-      <div
-        class="grid grid-cols-5 text-gray-700 mt-2 bg-white py-2 px-2 shadow-sm rounded-sm"
-      >
-        <div class="flex items-center space-x-2">
-          <input type="checkbox" name="" id="" />
-          <div class="h-8 w-8 rounded-full bg-gray-600"></div>
-          <div class="flex flex-col justify-center">
-            <div class="text-sm font-bold">Mahalazmi Sports club</div>
-            <div class="text-xs">aforamitrai@gmail.com</div>
-          </div>
-        </div>
-        <div class="flex items-center">+(91)7303032970</div>
         <div class="flex items-center">Mumbai</div>
         <div class="flex items-center">12-12-2020</div>
         <div class="flex items-center justify-between">
@@ -118,6 +99,19 @@ import Headers from './Headers.vue';
 export default {
   components: { Icons, Headers },
   name: 'AdminClubManagment',
+  methods: {
+    getUnApprovedClubs() {
+      this.$store.dispatch('adminGetClubs', { approved: false });
+    },
+  },
+  mounted() {
+    this.getUnApprovedClubs();
+  },
+  computed: {
+    clubsToApprove() {
+      return this.$store.getters.allUnApprovedClubs;
+    },
+  },
 };
 </script>
 

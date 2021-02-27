@@ -1,8 +1,8 @@
 <template>
   <div class="flex ">
-
     <div>
-      {{heading}}</div>
+      {{ heading }}
+    </div>
 
     <svg
       class="fill-current  text-gray-600"
@@ -12,16 +12,14 @@
     >
       <path :d="svg" />
     </svg>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: "Admin_Top_manage_event",
-  props: ["heading", "svg"]
+  name: 'admin-top',
+  props: ['heading', 'svg'],
 };
 </script>
 
-<style>
-</style>
+<style></style>

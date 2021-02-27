@@ -21,10 +21,14 @@
         <!-- data -->
         <div
           class="grid grid-cols-7 text-gray-700 mt-6 bg-white py-2 px-2 shadow-sm rounded-sm"
+          v-for="event in allEvents"
+          :key="event._id"
         >
           <div class="flex items-center space-x-2">
             <input type="checkbox" name="" id="" />
-            <router-link to="/admin/event/live-event">
+            <router-link
+              :to="{ name: 'admin-event-sel', params: { id: event._id } }"
+            >
               <div class="flex space-x-2">
                 <div
                   class="h-8 w-8 rounded-full bg-gray-600 flex items-center justify-center uppercase text-white"
@@ -33,13 +37,13 @@
                 </div>
 
                 <div class="flex flex-col justify-center">
-                  <div class="text-sm font-bold">State Semi Final</div>
+                  <div class="text-sm font-bold">{{ event.title }}</div>
                   <div class="text-xs">Age group 12-18</div>
                 </div>
               </div>
             </router-link>
           </div>
-          <div class="flex items-center">Andhari Sports Complex</div>
+          <div class="flex items-center">Andhari Sports Complex 12</div>
           <div class="flex items-center">Mumbai</div>
           <div class="flex items-center text-blue-500">12-12-2020</div>
           <div class="flex items-center justify-between">
@@ -48,34 +52,6 @@
           <div class="flex items-center ">
             <span class="bg-blue-500 text-white px-2 font-bold rounded-sm">
               Live
-            </span>
-          </div>
-        </div>
-
-        <div
-          class="grid grid-cols-7 text-gray-700 mt-2 bg-white py-2 px-2 shadow-sm rounded-sm"
-        >
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" name="" id="" />
-            <div
-              class="h-8 w-8 rounded-full bg-gray-600 text-white flex items-center justify-center uppercase"
-            >
-              I
-            </div>
-            <div class="flex flex-col justify-center">
-              <div class="text-sm font-bold">Inter State Quater Final</div>
-              <div class="text-xs">Age group 18-23</div>
-            </div>
-          </div>
-          <div class="flex items-center">Mumbai Police Gymkhana</div>
-          <div class="flex items-center">Mumbai</div>
-          <div class="flex items-center text-blue-500">12-12-2020</div>
-          <div class="flex items-center justify-between">
-            <div class="text-blue-500 cursor-pointer">90</div>
-          </div>
-          <div class="flex items-center ">
-            <span class="bg-gray-500 text-white px-2 font-bold rounded-sm">
-              Loading..
             </span>
           </div>
         </div>
@@ -94,5 +70,13 @@ import Headers from './Headers.vue';
 export default {
   components: { Headers, Icons },
   name: 'manage-event',
+  mounted() {
+    this.$store.dispatch('getEventsAdmin');
+  },
+  computed: {
+    allEvents() {
+      return this.$store.getters.allEventsAdmin;
+    },
+  },
 };
 </script>

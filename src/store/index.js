@@ -4,6 +4,7 @@ import AdminStore from "./AdminStore";
 import AuthStore from "./AuthStore";
 import EventStore from "./EventStore";
 import ClubStore from "./ClubsStore";
+import SheetStore from "./SheetStore";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
     AdminStore,
     AuthStore,
     EventStore,
-    ClubStore
+    ClubStore,
+    SheetStore
   }
 });
 

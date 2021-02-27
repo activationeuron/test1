@@ -28,6 +28,8 @@ import PlayerDashboard from '../components/PlayersComponent/PlayerDashboard.vue'
 // sheets
 import SheetsForms from "../components/SheetsComponents/SheetsForms.vue";
 import TestSheet from "../components/AdminComponent/event/sheets.vue";
+import adminAuth from "../components/HomeComponents/AdminAuth.vue";
+
 import store from "../store/index";
 Vue.use(VueRouter);
 
@@ -87,6 +89,7 @@ const routes = [
       },
       {
         path: "admin-club/:id",
+        name: "club-admin-id",
         meta: { requiresAuth: 'admin' },
         components: {
           main: AdminClub
@@ -94,6 +97,7 @@ const routes = [
       },
       {
         path: "/admin/event/:id",
+        name: "admin-event-sel",
         components: { main: LiveEvent }
       },
       {
@@ -167,6 +171,7 @@ const routes = [
       },
       {
         path: 'club-events',
+        name: "club-events",
         meta: { requiresAuth: 'clubadmin' },
 
         components: {
@@ -176,7 +181,7 @@ const routes = [
       {
         path: 'club-events/:id',
         meta: { requiresAuth: 'clubadmin' },
-
+        name: "club-event",
         components: {
           main: EventDetailClub,
         },
@@ -198,6 +203,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/admin-r",
+    component: adminAuth
+  }
 ];
 
 const router = new VueRouter({

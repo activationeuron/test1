@@ -1,23 +1,33 @@
-import gql from 'graphql-tag';
+import request from "../utils/request";
 const state = {
     allEvents: [],
-    createdEvent: {}
+    createdEvent: {},
+    levelSheets: []
 };
 
 const getters = {
 };
 
 const actions = {
-    async eventCreate({ commit }, eventData) {
+    async createEvent({ commit }, eventData) {
+        console.log(eventData);
+        try {
 
-    }
-    ,
+            await request.post("/event/create-event", eventData);
+
+        } catch (error) {
+            throw new Error("Fail To Create Event");
+        }
+    },
     async getEvents({ commit }) { }
 };
 
 const mutations = {
     EVENT_CREATED: (state, payload) => {
         state.createdEvent = payload.createEvent;
+    },
+    SET_SHEETS: (state, payload) => {
+        state.levelSheets = payload;
     }
 };
 

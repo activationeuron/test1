@@ -30,7 +30,8 @@
               </div>
               <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="font-bold text-gray-800 text-xl">
-                  Mahalaxmi Sports Club
+                  {{ selectedClub.clubName }}
+                  {{ selectedClub.approved }}
                 </div>
                 <div class="flex space-x-2">
                   <span class="flex flex-col items-center text-gray-800">
@@ -86,7 +87,7 @@
                   <div>
                     <div class="font-bold text-gray-700">Member Status</div>
                     <div class="text-gray-800 flex items-center space-x-2">
-                      <div>Active</div>
+                      <div @click="approveClub">Active</div>
                       <div
                         class="hover:bg-gray-700 hover:text-white rounded-full px-1 py-1"
                       >
@@ -260,6 +261,26 @@ export default {
     return {
       messageBox: false,
     };
+  },
+  mounted() {
+    this.getClubAllDetail();
+  },
+  methods: {
+    getClubAllDetail() {
+      this.$store.dispatch('getClubDetail', this.clubId.id);
+    },
+    approveClub() {
+      this.$store.dispatch('activateClub', this.clubId.id);
+    },
+  },
+
+  computed: {
+    clubId() {
+      return this.$route.params;
+    },
+    selectedClub() {
+      return this.$store.getters.currentClub;
+    },
   },
 };
 </script>
